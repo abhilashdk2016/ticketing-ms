@@ -1,10 +1,10 @@
 import { User } from '../models/user';
-import { validateRequest } from '../middleware/validate-request';
 import express, { Request, Response} from 'express';
 import { body } from 'express-validator';
-import { BadRequestError } from '../errors/bad-request-error';
 import { PasswordUtil } from '../utils/password-hash';
 import jwt from 'jsonwebtoken';
+import { validateRequest } from '../middleware/validate-request';
+import { BadRequestError } from '../errors/bad-request-error';
 
 const router = express.Router();
 const JWT_KEY = process.env.JWT_KEY || 'asdf';
