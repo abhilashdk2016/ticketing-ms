@@ -1,16 +1,9 @@
-import request from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import { app } from '../app';
 import jwt from 'jsonwebtoken';
-import { isJSDocUnknownType } from 'typescript';
 
 declare global {
-  namespace NodeJS {
-    interface Global {
-      signUp(): string[];
-    }
-  }
+  var signUp: () => string[];
 }
 
 jest.mock('../nats-wrapper');
@@ -58,6 +51,6 @@ global.signUp = () => {
 
   // Take JSON and encode it as base64
   const base64 = Buffer.from(sessionJson).toString('base64');
-  // return a string thst the cookie with the encoded data
+  // return a string that the cookie with the encoded data
   return [`express:sess=${base64}`]
 }

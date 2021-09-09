@@ -32,13 +32,13 @@ const start = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true
     });
-    console.log("Tickets Mongodb Connected!!!");
+    console.log("Orders Mongodb Connected!!!");
   } catch(err) {
     console.log(err);
   }
 
   app.listen(3000, () => {
-    console.log('Tickets Service Listening on port 3000!!!');
+    console.log('Orders Service Listening on port 3000!!!');
   });
 }
 

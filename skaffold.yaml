@@ -31,4 +31,12 @@ build:
       sync:
         manual:
           - dest: .
-            src: 'src/**/*.ts'        
+            src: 'src/**/*.ts'   
+    - image: abhilashdk2018/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'      
