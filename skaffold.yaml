@@ -7,6 +7,8 @@ deploy:
 build:
   local:
     push: false
+  # googleCloudBuild:
+  #   projectId: cka-p-318318
   artifacts:
     - image: abhilashdk2018/auth
       context: auth

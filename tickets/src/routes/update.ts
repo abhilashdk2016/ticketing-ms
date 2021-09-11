@@ -7,6 +7,7 @@ import { natsWrapper } from '../nats-wrapper';
 import { requireAuth } from '../middleware/require-auth';
 import { validateRequest } from '../middleware/validate-request';
 import { Ticket } from '../models/ticket';
+import { BadRequestError } from '@abhilashdk/common';
 
 const router = express.Router();
 
@@ -24,6 +25,11 @@ router.put('/api/tickets/:id', requireAuth, [
     throw new NotFoundError();
   }
 
+  // Presence of order id means it is reserved and updates should be prevented
+  if(ticket.orderId) {
+    throw new BadRequestError("Ticket is Reserved and cannot be edited");
+  }
+
   if (ticket.userId !== req.currentUser!.id) {
     return new NotAuthorizedError("Not Authorized");
   }
@@ -35,7 +41,8 @@ router.put('/api/tickets/:id', requireAuth, [
   await ticket.save();
   new TicketUpdatedPublisher(natsWrapper.client).publish({
     id: ticket.id,
-    ...ticket
+    ...ticket,
+    version: ticket.version
   });
   res.send(ticket);
 });

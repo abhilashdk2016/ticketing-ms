@@ -25,7 +25,8 @@ router.post('/api/tickets', requireAuth, [
   await ticket.save();
   new TicketCreatedPublisher(natsWrapper.client).publish({
     id: ticket.id,
-    ...ticket
+    ...ticket,
+    version: ticket.version
   });
   res.status(201).send(ticket);
   
