@@ -41,4 +41,20 @@ build:
       sync:
         manual:
           - dest: .
-            src: 'src/**/*.ts'      
+            src: 'src/**/*.ts'   
+    - image: abhilashdk2018/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .   
+    - image: abhilashdk2018/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .   
